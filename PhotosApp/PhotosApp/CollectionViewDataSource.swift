@@ -10,7 +10,6 @@ import Photos
 
 class CollectionViewDataSource: NSObject {
     var allPhotos : PHFetchResult<PHAsset>!
-    
 }
 
 extension CollectionViewDataSource: UICollectionViewDataSource {
