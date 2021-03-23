@@ -6,18 +6,44 @@
 //
 
 import UIKit
+import Photos
 
 class CollectionViewDataSource: NSObject {
+    var allPhotos : PHFetchResult<PHAsset>?
     
 }
 
 extension CollectionViewDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 40
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath) as? CustomCell
+        else {
+            return UICollectionViewCell()
+        }
+        
+        self.allPhotos = PHAsset.fetchAssets(with: nil)
+        let asset : PHAsset = (self.allPhotos?.object(at: indexPath.item))!
+        let imageManager = PHCachingImageManager()
+        let option = PHImageRequestOptions()
+        
+        cell.representedAssetIdentifirer = asset.localIdentifier
+        
+        imageManager.requestImage(for: asset, targetSize: CGSize.init(width: 80, height: 80), contentMode: .aspectFit, options: option, resultHandler: { image, _ in
+            print(image)
+            if cell.representedAssetIdentifirer == asset.localIdentifier {
+                cell.imageView.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
+                cell.imageView.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
+                cell.imageView.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true
+                cell.imageView.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
+                cell.imageView.image = image!
+                
+            }
+            
+        })
+        
         cell.backgroundColor = getRandomColor()
         return cell
     }
