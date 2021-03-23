@@ -9,13 +9,14 @@ import UIKit
 import Photos
 
 class CollectionViewDataSource: NSObject {
-    var allPhotos : PHFetchResult<PHAsset>?
+    var allPhotos : PHFetchResult<PHAsset>!
     
 }
 
 extension CollectionViewDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        self.allPhotos = PHAsset.fetchAssets(with: nil)
+        return allPhotos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -24,26 +25,15 @@ extension CollectionViewDataSource: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        self.allPhotos = PHAsset.fetchAssets(with: nil)
-        let asset : PHAsset = (self.allPhotos?.object(at: indexPath.item))!
+        let asset : PHAsset = self.allPhotos.object(at: indexPath.item)
         let imageManager = PHCachingImageManager()
-        let option = PHImageRequestOptions()
-        
-        cell.representedAssetIdentifirer = asset.localIdentifier
-        
-        imageManager.requestImage(for: asset, targetSize: CGSize.init(width: 80, height: 80), contentMode: .aspectFit, options: option, resultHandler: { image, _ in
-            print(image)
-            if cell.representedAssetIdentifirer == asset.localIdentifier {
-                cell.imageView.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
-                cell.imageView.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
-                cell.imageView.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true
-                cell.imageView.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
-                cell.imageView.image = image!
-                
-            }
-            
-        })
-        
+        imageManager.requestImage(for: asset,
+                                  targetSize: CGSize.init(width: 100, height: 100),
+                                  contentMode: .aspectFill,
+                                  options: nil,
+                                  resultHandler: { image, _ in
+                                    cell.imageView.image = image!
+                                  })
         cell.backgroundColor = getRandomColor()
         return cell
     }
@@ -58,6 +48,6 @@ extension CollectionViewDataSource: UICollectionViewDataSource {
 
 extension CollectionViewDataSource: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 80, height: 80)
+        return CGSize(width: 100, height: 100)
     }
 }
