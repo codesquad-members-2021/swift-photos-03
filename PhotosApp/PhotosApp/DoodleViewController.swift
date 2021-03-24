@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-class DoodleViewController: UICollectionViewController {
+class DoodleViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     var doodles = [Doodle]()
     
     override func viewDidLoad() {
@@ -64,7 +64,21 @@ extension DoodleViewController {
                 
             }
         }
+        
+        let longPressRecognizer = UITapGestureRecognizer(target: self, action: #selector(longPressedCell(gesture:)))
+        longPressRecognizer.cancelsTouchesInView = false
+        cell.imageView.tag = indexPath.row // add this
+        longPressRecognizer.numberOfTapsRequired = 1 // add this
+        longPressRecognizer.delegate = self
+        cell.imageView.isUserInteractionEnabled = true  // add this
+        cell.imageView.addGestureRecognizer(longPressRecognizer)
+        
         return cell
+    }
+    
+    @objc func longPressedCell(gesture: UITapGestureRecognizer) {
+        let indexPath = NSIndexPath(row: gesture.view!.tag, section: 0)
+        let cell = collectionView.cellForItem(at: indexPath as IndexPath)! as! CustomCell
     }
     
     func getRandomColor() -> UIColor{

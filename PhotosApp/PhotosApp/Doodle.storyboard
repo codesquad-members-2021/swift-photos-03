@@ -41,6 +41,7 @@
                                         <constraint firstAttribute="bottom" secondItem="RLO-gl-KGe" secondAttribute="bottom" id="zhG-Mx-8EG"/>
                                     </constraints>
                                 </collectionViewCellContentView>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="imageView" destination="RLO-gl-KGe" id="Mv3-oV-2b0"/>
                                 </connections>
