@@ -15,12 +15,12 @@ class DoodleViewController: UICollectionViewController {
         super.viewDidLoad()
         
         self.title = "Doodle"
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self,
-                 action: #selector(closeButtonPushed))
+
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(closeButtonPushed))
         self.collectionView.backgroundColor = .darkGray
         
         loadDoodles()
+        
     }
     
     func loadDoodles() {
@@ -49,8 +49,21 @@ extension DoodleViewController {
             return UICollectionViewCell()
         }
         
-        cell.backgroundColor = getRandomColor()
-        
+        DispatchQueue.global().async {
+            let doodle = self.doodles[indexPath.row]
+            let imageURL = doodle.image
+            guard let url = URL(string: imageURL) else { return }
+            var data = Data()
+            do {
+                data = try Data(contentsOf: url)
+            } catch {
+                return
+            }
+            DispatchQueue.main.async {
+                cell.imageView.image = UIImage(data: data)
+                
+            }
+        }
         return cell
     }
     
