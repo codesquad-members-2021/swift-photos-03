@@ -6,39 +6,50 @@
 //
 
 import UIKit
+import Photos
 
-class ViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
+class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
+    @IBOutlet weak var collectionView: PhotosColectionView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
         
-    }
-}
-
-extension ViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 40
+        self.collectionView.reloadData()
+        PHPhotoLibrary.shared().register(self)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath)
-        cell.backgroundColor = getRandomColor()
-        return cell
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        var assetCollection = collectionView.collecitonViewDataSource.allPhotos
+        
+        DispatchQueue.main.sync {
+            guard let changes = changeInstance.changeDetails(for: assetCollection!)
+            else {
+                return
+            }
+            
+            assetCollection = changes.fetchResultAfterChanges
+            
+            if changes.hasIncrementalChanges {
+                collectionView.performBatchUpdates({
+                    if let removed = changes.removedIndexes , removed.count > 0 {
+                        collectionView.deleteItems(at: removed.map { IndexPath(item: $0, section:0) })
+                    }
+                    if let inserted = changes.insertedIndexes , inserted.count > 0 {
+                        collectionView.insertItems(at: inserted.map { IndexPath(item: $0, section:0) })
+                    }
+                    if let changed = changes.changedIndexes , changed.count > 0 {
+                        collectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
+                    }
+                    changes.enumerateMoves { fromIndex, toIndex in
+                        self.collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0),
+                                                     to: IndexPath(item: toIndex, section: 0))
+                    }
+                })
+            } else {
+                collectionView.reloadData()
+            }
+        }
     }
     
-    func getRandomColor() -> UIColor{
-        let randomRed:CGFloat = CGFloat(drand48())
-        let randomGreen:CGFloat = CGFloat(drand48())
-        let randomBlue:CGFloat = CGFloat(drand48())
-        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
-    }
-}
-
-extension ViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 80, height: 80)
-    }
 }
