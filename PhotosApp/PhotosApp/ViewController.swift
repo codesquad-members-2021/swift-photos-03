@@ -16,6 +16,7 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
         guard let doodleVC = doodleStoryboard.instantiateViewController(identifier: "DoodleViewController") as? DoodleViewController else {return}
         
         let navigationController = UINavigationController(rootViewController: doodleVC)
+        
         present(navigationController, animated: true, completion: nil)
     }
     
