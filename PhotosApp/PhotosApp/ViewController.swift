@@ -22,8 +22,8 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         var assetCollection = collectionView.collecitonViewDataSource.allPhotos
         
-        DispatchQueue.main.sync {
-            guard let changes = changeInstance.changeDetails(for: assetCollection!)
+        DispatchQueue.main.async {
+            guard let changes = changeInstance.changeDetails(for: assetCollection)
             else {
                 return
             }
@@ -31,15 +31,15 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
             assetCollection = changes.fetchResultAfterChanges
             
             if changes.hasIncrementalChanges {
-                collectionView.performBatchUpdates({
+                self.collectionView.performBatchUpdates({
                     if let removed = changes.removedIndexes , removed.count > 0 {
-                        collectionView.deleteItems(at: removed.map { IndexPath(item: $0, section:0) })
+                        self.collectionView.deleteItems(at: removed.map { IndexPath(item: $0, section:0) })
                     }
                     if let inserted = changes.insertedIndexes , inserted.count > 0 {
-                        collectionView.insertItems(at: inserted.map { IndexPath(item: $0, section:0) })
+                        self.collectionView.insertItems(at: inserted.map { IndexPath(item: $0, section:0) })
                     }
                     if let changed = changes.changedIndexes , changed.count > 0 {
-                        collectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
+                        self.collectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
                     }
                     changes.enumerateMoves { fromIndex, toIndex in
                         self.collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0),
@@ -47,7 +47,7 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
                     }
                 })
             } else {
-                collectionView.reloadData()
+                self.collectionView.reloadData()
             }
         }
     }

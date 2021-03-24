@@ -9,12 +9,39 @@ import UIKit
 import Photos
 
 class CollectionViewDataSource: NSObject {
-    var allPhotos : PHFetchResult<PHAsset>!
+    var allPhotos : PHFetchResult<PHAsset>
+    
+    override init() {
+            self.allPhotos = PHFetchResult<PHAsset>()
+            super.init()
+            self.requestPhotos()
+            self.checkAuthorizationStatus()
+        }
+        
+        private func checkAuthorizationStatus() {
+            let status = PHPhotoLibrary.authorizationStatus()
+            switch status {
+            case .authorized:
+                self.allPhotos = PHAsset.fetchAssets(with: nil)
+            default:
+                break
+            }
+        }
+        
+        private func requestPhotos() {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                switch status {
+                case .authorized:
+                    self.allPhotos = PHAsset.fetchAssets(with: nil)
+                default:
+                    break
+                }
+            }
+        }
 }
 
 extension CollectionViewDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.allPhotos = PHAsset.fetchAssets(with: nil)
         return allPhotos.count
     }
     
