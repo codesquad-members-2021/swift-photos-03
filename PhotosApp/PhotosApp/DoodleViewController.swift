@@ -11,6 +11,10 @@ import Photos
 class DoodleViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     var doodles = [Doodle]()
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +83,21 @@ extension DoodleViewController {
     @objc func longPressedCell(gesture: UITapGestureRecognizer) {
         let indexPath = NSIndexPath(row: gesture.view!.tag, section: 0)
         let cell = collectionView.cellForItem(at: indexPath as IndexPath)! as! CustomCell
+        cell.becomeFirstResponder()
+        
+        
+        if let rectView = gesture.view, let superRectView = rectView.superview {
+            let saveMenuItem = UIMenuItem(title: "Save💾", action: #selector(save(_:)))
+            UIMenuController.shared.menuItems = [saveMenuItem]
+            UIMenuController.shared.arrowDirection = .default
+            UIMenuController.shared.setMenuVisible(true, animated: true)
+            UIMenuController.shared.setTargetRect(rectView.frame, in: superRectView)
+        }
+    }
+    
+    @objc func save(_ sender: UIImage) {
+        print("Hello~!")
+//        UIImageWriteToSavedPhotosAlbum(inputImage, nil, nil, nil)
     }
     
     func getRandomColor() -> UIColor{
