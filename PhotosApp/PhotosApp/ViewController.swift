@@ -11,6 +11,13 @@ import Photos
 class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
     @IBOutlet weak var collectionView: PhotosColectionView!
     
+    @IBAction func addButtonPushed(_ sender: Any) {
+        let doodleStoryboard = UIStoryboard.init(name: "Doodle", bundle: nil)
+        guard let doodleVC = doodleStoryboard.instantiateViewController(identifier: "DoodleViewController") as? DoodleViewController else {return}
+        
+        let navigationController = UINavigationController(rootViewController: doodleVC)
+        present(navigationController, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
