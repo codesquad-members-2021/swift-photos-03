@@ -29,7 +29,7 @@ extension CollectionViewDataSource: UICollectionViewDataSource {
                                   contentMode: .aspectFill,
                                   options: nil,
                                   resultHandler: { image, _ in
-                                    cell.imageView.image = image!
+                                    cell.imageView.image = image
                                   })
         cell.backgroundColor = getRandomColor()
         return cell

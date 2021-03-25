@@ -81,10 +81,14 @@ extension DoodleViewController {
     }
     
     @objc func longPressedCell(gesture: UITapGestureRecognizer) {
-        let indexPath = NSIndexPath(row: gesture.view!.tag, section: 0)
-        let cell = collectionView.cellForItem(at: indexPath as IndexPath)! as! CustomCell
+        guard let gestureView = gesture.view else { return }
+        let indexPath = NSIndexPath(row: gestureView.tag, section: 0)
+        
+        guard let cell = collectionView.cellForItem(at: indexPath as IndexPath) as? CustomCell else { return }
         cell.becomeFirstResponder()
-        PhotoManager.shared.doodleClipBoardImage = cell.imageView.image!
+        
+        guard let cellImage = cell.imageView.image else { return }
+        PhotoManager.shared.doodleClipBoardImage = cellImage
         
         if let rectView = gesture.view {
             let saveMenuItem = UIMenuItem(title: "Save💾", action: #selector(save))
