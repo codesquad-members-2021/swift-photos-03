@@ -28,16 +28,14 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
         PHPhotoLibrary.shared().register(self)
     }
     
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        var assetCollection = PhotoManager.shared.allPhotos
-        
+    func photoLibraryDidChange(_ changeInstance: PHChange) {        
         DispatchQueue.main.async {
-            guard let changes = changeInstance.changeDetails(for: assetCollection)
+            guard let changes = changeInstance.changeDetails(for: PhotoManager.shared.allPhotos)
             else {
                 return
             }
             
-            assetCollection = changes.fetchResultAfterChanges
+            PhotoManager.shared.allPhotos = changes.fetchResultAfterChanges
             
             if changes.hasIncrementalChanges {
                 self.collectionView.performBatchUpdates({
