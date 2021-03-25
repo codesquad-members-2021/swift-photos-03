@@ -38,11 +38,7 @@
 
 ### 질문거리
 
--  `DataSource` 를 `ViewModel` 혹은 `presenter` 역할 하는 것을 목표로 나누는 것을 시작했습니다. 해당 부분에 대해 어색한 부분이 없지 않은지 궁금합니다. 참고로 `DoodleViewController` 는 미션 요구사항 중 
-
-  > CollectionViewController에서 상속받은 새로운 DoodleViewController를 표시한다.
-
-  를 준수하기 위해 `ViewContoller` 처럼 나누는 것이 어려울 것이라 판단해 다른 모습으로 코딩을 하게 됐습니다. 
+-  `DataSource` 를 `ViewModel` 혹은 `presenter` 역할 하는 것을 목표로 나누는 것을 시작했습니다. 해당 부분에 대해 어색한 부분이 없지 않은지 궁금합니다.
 
 
 
