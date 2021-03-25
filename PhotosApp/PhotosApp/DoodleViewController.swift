@@ -65,19 +65,22 @@ extension DoodleViewController {
             }
             DispatchQueue.main.async {
                 cell.imageView.image = UIImage(data: data)
-                
             }
         }
         
+        setTouchRecognizer(To: cell, indexPathRow: indexPath.row)
+        
+        return cell
+    }
+    
+    func setTouchRecognizer(To cell : CustomCell, indexPathRow : Int) {
         let longPressRecognizer = UITapGestureRecognizer(target: self, action: #selector(longPressedCell(gesture:)))
         longPressRecognizer.cancelsTouchesInView = false
-        cell.imageView.tag = indexPath.row // add this
+        cell.imageView.tag = indexPathRow // add this
         longPressRecognizer.numberOfTapsRequired = 1 // add this
         longPressRecognizer.delegate = self
         cell.imageView.isUserInteractionEnabled = true  // add this
         cell.imageView.addGestureRecognizer(longPressRecognizer)
-        
-        return cell
     }
     
     @objc func longPressedCell(gesture: UITapGestureRecognizer) {
@@ -101,13 +104,6 @@ extension DoodleViewController {
     @objc func save() {
         let image = PhotoManager.shared.doodleClipBoardImage
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-    }
-    
-    func getRandomColor() -> UIColor{
-        let randomRed:CGFloat = CGFloat(drand48())
-        let randomGreen:CGFloat = CGFloat(drand48())
-        let randomBlue:CGFloat = CGFloat(drand48())
-        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
     }
 }
 
