@@ -22,13 +22,14 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        PhotoManager.shared.requestPhotos()
+        PhotoManager.shared.checkAuthorizationStatus()
         self.collectionView.reloadData()
         PHPhotoLibrary.shared().register(self)
     }
     
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        var assetCollection = collectionView.collecitonViewDataSource.allPhotos
+        var assetCollection = PhotoManager.shared.allPhotos
         
         DispatchQueue.main.async {
             guard let changes = changeInstance.changeDetails(for: assetCollection)

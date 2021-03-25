@@ -9,40 +9,11 @@ import UIKit
 import Photos
 
 class CollectionViewDataSource: NSObject {
-    var allPhotos : PHFetchResult<PHAsset>
-    
-    override init() {
-            self.allPhotos = PHFetchResult<PHAsset>()
-            super.init()
-            self.requestPhotos()
-            self.checkAuthorizationStatus()
-        }
-        
-        private func checkAuthorizationStatus() {
-            let status = PHPhotoLibrary.authorizationStatus()
-            switch status {
-            case .authorized:
-                self.allPhotos = PHAsset.fetchAssets(with: nil)
-            default:
-                break
-            }
-        }
-        
-        private func requestPhotos() {
-            PHPhotoLibrary.requestAuthorization { (status) in
-                switch status {
-                case .authorized:
-                    self.allPhotos = PHAsset.fetchAssets(with: nil)
-                default:
-                    break
-                }
-            }
-        }
 }
 
 extension CollectionViewDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allPhotos.count
+        return PhotoManager.shared.allPhotos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -51,7 +22,7 @@ extension CollectionViewDataSource: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let asset : PHAsset = self.allPhotos.object(at: indexPath.item)
+        let asset : PHAsset = PhotoManager.shared.allPhotos.object(at: indexPath.item)
         let imageManager = PHCachingImageManager()
         imageManager.requestImage(for: asset,
                                   targetSize: CGSize.init(width: 100, height: 100),

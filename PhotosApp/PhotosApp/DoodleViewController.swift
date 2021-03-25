@@ -84,10 +84,10 @@ extension DoodleViewController {
         let indexPath = NSIndexPath(row: gesture.view!.tag, section: 0)
         let cell = collectionView.cellForItem(at: indexPath as IndexPath)! as! CustomCell
         cell.becomeFirstResponder()
-        
+        PhotoManager.shared.doodleClipBoardImage = cell.imageView.image!
         
         if let rectView = gesture.view, let superRectView = rectView.superview {
-            let saveMenuItem = UIMenuItem(title: "Save💾", action: #selector(save(_:)))
+            let saveMenuItem = UIMenuItem(title: "Save💾", action: #selector(save))
             UIMenuController.shared.menuItems = [saveMenuItem]
             UIMenuController.shared.arrowDirection = .default
             UIMenuController.shared.setMenuVisible(true, animated: true)
@@ -95,9 +95,9 @@ extension DoodleViewController {
         }
     }
     
-    @objc func save(_ sender: UIImage) {
-        print("Hello~!")
-//        UIImageWriteToSavedPhotosAlbum(inputImage, nil, nil, nil)
+    @objc func save() {
+        let image = PhotoManager.shared.doodleClipBoardImage
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
     
     func getRandomColor() -> UIColor{

@@ -19,6 +19,7 @@
 		B0EF6BB826098A97001F0DCC /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF6BB726098A97001F0DCC /* CustomCell.swift */; };
 		B0EF6BBF260B0DE9001F0DCC /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF6BBE260B0DE9001F0DCC /* DoodleViewController.swift */; };
 		B0EF6BC2260B11A3001F0DCC /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0EF6BC1260B11A3001F0DCC /* Doodle.storyboard */; };
+		B0EF6BC6260C2997001F0DCC /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF6BC5260C2997001F0DCC /* PhotoManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		B0EF6BB726098A97001F0DCC /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		B0EF6BBE260B0DE9001F0DCC /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
 		B0EF6BC1260B11A3001F0DCC /* Doodle.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doodle.storyboard; sourceTree = "<group>"; };
+		B0EF6BC5260C2997001F0DCC /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				B0EF6BB726098A97001F0DCC /* CustomCell.swift */,
 				B0EF6BBE260B0DE9001F0DCC /* DoodleViewController.swift */,
 				B0EF6BC1260B11A3001F0DCC /* Doodle.storyboard */,
+				B0EF6BC5260C2997001F0DCC /* PhotoManager.swift */,
 			);
 			path = PhotosApp;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				22693BB426086BAF00E0DF6D /* ViewController.swift in Sources */,
 				22693BB026086BAF00E0DF6D /* AppDelegate.swift in Sources */,
 				22A74D942609813100B0C680 /* PhotosCollectionView.swift in Sources */,
+				B0EF6BC6260C2997001F0DCC /* PhotoManager.swift in Sources */,
 				22693BB226086BAF00E0DF6D /* SceneDelegate.swift in Sources */,
 				B0EF6BBF260B0DE9001F0DCC /* DoodleViewController.swift in Sources */,
 				B0EF6BB826098A97001F0DCC /* CustomCell.swift in Sources */,
