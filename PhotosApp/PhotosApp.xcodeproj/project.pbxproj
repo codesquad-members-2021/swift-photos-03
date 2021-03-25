@@ -70,22 +70,54 @@
 		22693BAE26086BAF00E0DF6D /* PhotosApp */ = {
 			isa = PBXGroup;
 			children = (
+				B075D0CF260C5A5700731DAC /* Common */,
+				B075D0CE260C5A4000731DAC /* Model */,
+				B075D0CD260C5A1E00731DAC /* DoodleViewComponents */,
+				B075D0CC260C59EF00731DAC /* albumViewComponents */,
 				22693BAF26086BAF00E0DF6D /* AppDelegate.swift */,
 				22693BB126086BAF00E0DF6D /* SceneDelegate.swift */,
-				22693BB326086BAF00E0DF6D /* ViewController.swift */,
-				22A74D9026097FC300B0C680 /* CollectionViewDataSource.swift */,
-				22A74D932609813100B0C680 /* PhotosCollectionView.swift */,
-				22B73788260B1B5F008C83CE /* Doodle.swift */,
-				22693BB526086BAF00E0DF6D /* Main.storyboard */,
 				22693BB826086BB300E0DF6D /* Assets.xcassets */,
 				22693BBA26086BB300E0DF6D /* LaunchScreen.storyboard */,
 				22693BBD26086BB300E0DF6D /* Info.plist */,
-				B0EF6BB726098A97001F0DCC /* CustomCell.swift */,
-				B0EF6BBE260B0DE9001F0DCC /* DoodleViewController.swift */,
-				B0EF6BC1260B11A3001F0DCC /* Doodle.storyboard */,
-				B0EF6BC5260C2997001F0DCC /* PhotoManager.swift */,
 			);
 			path = PhotosApp;
+			sourceTree = "<group>";
+		};
+		B075D0CC260C59EF00731DAC /* albumViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				22693BB326086BAF00E0DF6D /* ViewController.swift */,
+				22A74D9026097FC300B0C680 /* CollectionViewDataSource.swift */,
+				22A74D932609813100B0C680 /* PhotosCollectionView.swift */,
+				22693BB526086BAF00E0DF6D /* Main.storyboard */,
+			);
+			path = albumViewComponents;
+			sourceTree = "<group>";
+		};
+		B075D0CD260C5A1E00731DAC /* DoodleViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				B0EF6BBE260B0DE9001F0DCC /* DoodleViewController.swift */,
+				B0EF6BC1260B11A3001F0DCC /* Doodle.storyboard */,
+			);
+			path = DoodleViewComponents;
+			sourceTree = "<group>";
+		};
+		B075D0CE260C5A4000731DAC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				22B73788260B1B5F008C83CE /* Doodle.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B075D0CF260C5A5700731DAC /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B0EF6BB726098A97001F0DCC /* CustomCell.swift */,
+				B0EF6BC5260C2997001F0DCC /* PhotoManager.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
