@@ -86,12 +86,11 @@ extension DoodleViewController {
         cell.becomeFirstResponder()
         PhotoManager.shared.doodleClipBoardImage = cell.imageView.image!
         
-        if let rectView = gesture.view, let superRectView = rectView.superview {
+        if let rectView = gesture.view {
             let saveMenuItem = UIMenuItem(title: "Save💾", action: #selector(save))
             UIMenuController.shared.menuItems = [saveMenuItem]
             UIMenuController.shared.arrowDirection = .default
-            UIMenuController.shared.setMenuVisible(true, animated: true)
-            UIMenuController.shared.setTargetRect(rectView.frame, in: superRectView)
+            UIMenuController.shared.showMenu(from: rectView, rect: rectView.frame)
         }
     }
     
