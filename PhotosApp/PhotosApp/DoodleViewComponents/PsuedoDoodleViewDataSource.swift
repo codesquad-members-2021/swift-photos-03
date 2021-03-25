@@ -7,12 +7,30 @@
 
 import UIKit
 
-extension DoodleViewController {
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIGestureRecognizerDelegate {
+    var doodles : [Doodle]
+    
+    override init() {
+        doodles = [Doodle]()
+        super.init()
+        loadDoodles()
+    }
+    
+    func loadDoodles() {
+        guard let photosData = NSDataAsset(name: "doodle") else { return }
+        do {
+            self.doodles = try JSONDecoder().decode([Doodle].self, from: photosData.data)
+        } catch {
+            self.doodles = [Doodle]()
+            return
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return doodles.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath) as? CustomCell
         else {
             return UICollectionViewCell()
@@ -50,24 +68,7 @@ extension DoodleViewController {
     
     @objc func longPressedCell(gesture: UITapGestureRecognizer) {
         guard let gestureView = gesture.view else { return }
-        let indexPath = NSIndexPath(row: gestureView.tag, section: 0)
-        
-        guard let cell = collectionView.cellForItem(at: indexPath as IndexPath) as? CustomCell else { return }
-        cell.becomeFirstResponder()
-        
-        guard let cellImage = cell.imageView.image else { return }
-        PhotoManager.shared.doodleClipBoardImage = cellImage
-        
-        if let rectView = gesture.view {
-            let saveMenuItem = UIMenuItem(title: "Save💾", action: #selector(save))
-            UIMenuController.shared.menuItems = [saveMenuItem]
-            UIMenuController.shared.arrowDirection = .default
-            UIMenuController.shared.showMenu(from: rectView, rect: rectView.frame)
-        }
-    }
-    
-    @objc func save() {
-        let image = PhotoManager.shared.doodleClipBoardImage
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        guard let cell = gestureView.superview?.superview! as? CustomCell else { return }
+        cell.showMenu()
     }
 }

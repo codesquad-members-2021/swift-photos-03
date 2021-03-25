@@ -9,4 +9,24 @@ import UIKit
 
 class CustomCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    func showMenu() {
+        self.becomeFirstResponder()
+        let saveMenuItem = UIMenuItem(title: "Save💾", action: #selector(save))
+        UIMenuController.shared.menuItems = [saveMenuItem]
+        UIMenuController.shared.arrowDirection = .default
+        UIMenuController.shared.showMenu(from: self, rect: self.bounds)
+    }
+    
+    @objc func save() {
+        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil, nil)
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        return action == #selector(save)
+    }
 }

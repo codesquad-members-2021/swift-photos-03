@@ -9,8 +9,9 @@ import UIKit
 import Photos
 
 class DoodleViewController: UICollectionViewController, UIGestureRecognizerDelegate {
-    var doodles = [Doodle]()
+    
     let delegateFlowLayout = DoodleViewDelegateFlowLayout()
+    let dataSource = DoodleViewControllerDataSource()
     
     override var canBecomeFirstResponder: Bool {
         return true
@@ -20,22 +21,15 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
         super.viewDidLoad()
         
         self.collectionView.delegate = delegateFlowLayout
+        self.collectionView.dataSource = dataSource
         
         self.title = "Doodle"
         self.collectionView.backgroundColor = .darkGray
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(closeButtonPushed))
-        loadDoodles()
+
     }
     
-    func loadDoodles() {
-        guard let photosData = NSDataAsset(name: "doodle") else { return }
-        do {
-            self.doodles = try JSONDecoder().decode([Doodle].self, from: photosData.data)
-        } catch {
-            self.doodles = [Doodle]()
-            return
-        }
-    }
+    
     
     @objc func closeButtonPushed() {
         self.dismiss(animated: true, completion: nil)
