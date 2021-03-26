@@ -16,7 +16,7 @@
 		22A74D9126097FC300B0C680 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A74D9026097FC300B0C680 /* CollectionViewDataSource.swift */; };
 		22A74D942609813100B0C680 /* PhotosCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A74D932609813100B0C680 /* PhotosCollectionView.swift */; };
 		22B73789260B1B5F008C83CE /* Doodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B73788260B1B5F008C83CE /* Doodle.swift */; };
-		B075D0D2260C5AD300731DAC /* PsuedoDoodleViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B075D0D1260C5AD300731DAC /* PsuedoDoodleViewDataSource.swift */; };
+		B075D0D2260C5AD300731DAC /* DoodleViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B075D0D1260C5AD300731DAC /* DoodleViewDataSource.swift */; };
 		B075D0D5260C5BC100731DAC /* DoodleViewDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B075D0D4260C5BC100731DAC /* DoodleViewDelegateFlowLayout.swift */; };
 		B0EF6BB826098A97001F0DCC /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF6BB726098A97001F0DCC /* CustomCell.swift */; };
 		B0EF6BBF260B0DE9001F0DCC /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF6BBE260B0DE9001F0DCC /* DoodleViewController.swift */; };
@@ -36,7 +36,7 @@
 		22A74D9026097FC300B0C680 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		22A74D932609813100B0C680 /* PhotosCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionView.swift; sourceTree = "<group>"; };
 		22B73788260B1B5F008C83CE /* Doodle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle.swift; sourceTree = "<group>"; };
-		B075D0D1260C5AD300731DAC /* PsuedoDoodleViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PsuedoDoodleViewDataSource.swift; sourceTree = "<group>"; };
+		B075D0D1260C5AD300731DAC /* DoodleViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewDataSource.swift; sourceTree = "<group>"; };
 		B075D0D4260C5BC100731DAC /* DoodleViewDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewDelegateFlowLayout.swift; sourceTree = "<group>"; };
 		B0EF6BB726098A97001F0DCC /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		B0EF6BBE260B0DE9001F0DCC /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 			children = (
 				B0EF6BBE260B0DE9001F0DCC /* DoodleViewController.swift */,
 				B0EF6BC1260B11A3001F0DCC /* Doodle.storyboard */,
-				B075D0D1260C5AD300731DAC /* PsuedoDoodleViewDataSource.swift */,
+				B075D0D1260C5AD300731DAC /* DoodleViewDataSource.swift */,
 				B075D0D4260C5BC100731DAC /* DoodleViewDelegateFlowLayout.swift */,
 			);
 			path = DoodleViewComponents;
@@ -200,7 +200,7 @@
 				22693BB426086BAF00E0DF6D /* ViewController.swift in Sources */,
 				B075D0D5260C5BC100731DAC /* DoodleViewDelegateFlowLayout.swift in Sources */,
 				22693BB026086BAF00E0DF6D /* AppDelegate.swift in Sources */,
-				B075D0D2260C5AD300731DAC /* PsuedoDoodleViewDataSource.swift in Sources */,
+				B075D0D2260C5AD300731DAC /* DoodleViewDataSource.swift in Sources */,
 				22A74D942609813100B0C680 /* PhotosCollectionView.swift in Sources */,
 				B0EF6BC6260C2997001F0DCC /* PhotoManager.swift in Sources */,
 				22693BB226086BAF00E0DF6D /* SceneDelegate.swift in Sources */,

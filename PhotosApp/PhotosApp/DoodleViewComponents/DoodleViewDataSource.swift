@@ -9,9 +9,11 @@ import UIKit
 
 class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     var doodles : [Doodle]
+    var doodlesImage: [UIImage?]
     
     override init() {
         doodles = [Doodle]()
+        doodlesImage = [UIImage?]()
         super.init()
         loadDoodles()
     }
@@ -24,6 +26,7 @@ class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIG
             self.doodles = [Doodle]()
             return
         }
+        doodlesImage = Array(repeating: nil, count: doodles.count)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -35,22 +38,28 @@ class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIG
         else {
             return UICollectionViewCell()
         }
-        
         DispatchQueue.global().async {
-            let doodle = self.doodles[indexPath.row]
-            let imageURL = doodle.image
-            guard let url = URL(string: imageURL) else { return }
-            var data = Data()
-            do {
-                data = try Data(contentsOf: url)
-            } catch {
-                return
-            }
-            DispatchQueue.main.async {
-                cell.imageView.image = UIImage(data: data)
+            if self.doodlesImage[indexPath.row] == nil {
+                let doodle = self.doodles[indexPath.row]
+                let imageURL = doodle.image
+                guard let url = URL(string: imageURL) else { return }
+                var data = Data()
+                do {
+                    data = try Data(contentsOf: url)
+                } catch {
+                    return
+                }
+                let doodleImage = UIImage(data: data)
+                self.doodlesImage[indexPath.row] = doodleImage ?? UIImage()
+                DispatchQueue.main.async {
+                    cell.imageView.image = doodleImage
+                }
+            } else {
+                DispatchQueue.main.async {
+                    cell.imageView.image = self.doodlesImage[indexPath.row]
+                }
             }
         }
-        
         setTouchRecognizer(To: cell, indexPathRow: indexPath.row)
         
         return cell
@@ -59,10 +68,9 @@ class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIG
     func setTouchRecognizer(To cell : CustomCell, indexPathRow : Int) {
         let longPressRecognizer = UITapGestureRecognizer(target: self, action: #selector(longPressedCell(gesture:)))
         longPressRecognizer.cancelsTouchesInView = false
-        cell.imageView.tag = indexPathRow // add this
-        longPressRecognizer.numberOfTapsRequired = 1 // add this
+        longPressRecognizer.numberOfTapsRequired = 1
         longPressRecognizer.delegate = self
-        cell.imageView.isUserInteractionEnabled = true  // add this
+        cell.imageView.isUserInteractionEnabled = true
         cell.imageView.addGestureRecognizer(longPressRecognizer)
     }
     

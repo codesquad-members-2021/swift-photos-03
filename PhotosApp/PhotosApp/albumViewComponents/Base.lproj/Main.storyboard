@@ -57,9 +57,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Photos" id="Hcj-aI-dF8">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="TAq-O5-8tB">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="TAq-O5-8tB">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZMS-Q0-euX">
-                                <rect key="frame" x="302" y="11" width="72" height="22"/>
+                                <rect key="frame" x="16" y="11" width="72" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="plus" catalog="system"/>
                                 <connections>

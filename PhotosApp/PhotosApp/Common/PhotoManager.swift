@@ -10,11 +10,9 @@ import Photos
 class PhotoManager {
     var allPhotos : PHFetchResult<PHAsset>
     static var shared = PhotoManager()
-    var doodleClipBoardImage : UIImage
     
     private init() {
         allPhotos = PHFetchResult<PHAsset>()
-        doodleClipBoardImage = UIImage()
     }
     
     func checkAuthorizationStatus() {
