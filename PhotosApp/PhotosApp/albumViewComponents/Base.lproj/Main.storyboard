@@ -56,7 +56,18 @@
                             <constraint firstItem="Usa-Hr-Ur2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="muS-ji-Kpp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Photos" id="Hcj-aI-dF8"/>
+                    <navigationItem key="navigationItem" title="Photos" id="Hcj-aI-dF8">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="TAq-O5-8tB">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZMS-Q0-euX">
+                                <rect key="frame" x="16" y="11" width="72" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="addButtonPushed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LPm-yY-i1j"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="Usa-Hr-Ur2" id="aSa-Se-WDk"/>
                     </connections>
@@ -85,6 +96,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
