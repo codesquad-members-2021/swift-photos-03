@@ -11,22 +11,10 @@ class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIG
     private var doodles : [Doodle]
     private var doodlesImage: [UIImage?]
     
-    override init() {
-        doodles = [Doodle]()
-        doodlesImage = [UIImage?]()
+    init(doodles: [Doodle]) {
+        self.doodles = doodles
+        self.doodlesImage = Array(repeating: nil, count: self.doodles.count)
         super.init()
-        loadDoodles()
-    }
-    
-    private func loadDoodles() {
-        guard let photosData = NSDataAsset(name: "doodle") else { return }
-        do {
-            self.doodles = try JSONDecoder().decode([Doodle].self, from: photosData.data)
-        } catch {
-            self.doodles = [Doodle]()
-            return
-        }
-        doodlesImage = Array(repeating: nil, count: doodles.count)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -45,8 +33,7 @@ class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIG
                 guard let url = URL(string: imageURL) else { return }
                 let request = URLRequest(url: url)
                 URLSession.shared.dataTask(with: request) { (data, _, error) in
-                    guard error == nil else { print(error!); return }
-                    guard let data = data else { print("안됑"); return }
+                    guard let data = data else { return }
                     let doodleImage = UIImage(data: data)
                     self.doodlesImage[indexPath.row] = doodleImage ?? UIImage()
                     DispatchQueue.main.async {

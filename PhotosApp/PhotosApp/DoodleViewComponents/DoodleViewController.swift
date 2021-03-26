@@ -11,15 +11,16 @@ import Photos
 class DoodleViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     
     let delegateFlowLayout = DoodleViewDelegateFlowLayout()
-    let dataSource = DoodleViewControllerDataSource()
-    
+    var dataSource: DoodleViewControllerDataSource!
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let doodles = loadDoodles()
+        self.dataSource = DoodleViewControllerDataSource(doodles: doodles)
         self.collectionView.delegate = delegateFlowLayout
         self.collectionView.dataSource = dataSource
         
@@ -29,7 +30,16 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
 
     }
     
-    
+    private func loadDoodles() -> [Doodle] {
+        var doodles = [Doodle]()
+        guard let photosData = NSDataAsset(name: "doodle") else { return [Doodle]() }
+        do {
+            doodles = try JSONDecoder().decode([Doodle].self, from: photosData.data)
+        } catch {
+            return [Doodle]()
+        }
+        return doodles
+    }
     
     @objc func closeButtonPushed() {
         self.dismiss(animated: true, completion: nil)
