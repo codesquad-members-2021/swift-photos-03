@@ -43,18 +43,17 @@ class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIG
                 let doodle = self.doodles[indexPath.row]
                 let imageURL = doodle.image
                 guard let url = URL(string: imageURL) else { return }
-                var data = Data()
-                do {
-                    data = try Data(contentsOf: url)
-                } catch {
-                    return
-                }
-                let doodleImage = UIImage(data: data)
-                self.doodlesImage[indexPath.row] = doodleImage ?? UIImage()
-                DispatchQueue.main.async {
-                    cell.imageView.image = doodleImage
-                    self.setTouchRecognizer(To: cell, indexPathRow: indexPath.row)
-                }
+                let request = URLRequest(url: url)
+                URLSession.shared.dataTask(with: request) { (data, _, error) in
+                    guard error == nil else { print(error!); return }
+                    guard let data = data else { print("안됑"); return }
+                    let doodleImage = UIImage(data: data)
+                    self.doodlesImage[indexPath.row] = doodleImage ?? UIImage()
+                    DispatchQueue.main.async {
+                        cell.imageView.image = doodleImage
+                        self.setTouchRecognizer(To: cell, indexPathRow: indexPath.row)
+                    }
+                }.resume()
             } else {
                 DispatchQueue.main.async {
                     cell.imageView.image = self.doodlesImage[indexPath.row]
