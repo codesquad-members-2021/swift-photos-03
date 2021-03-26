@@ -8,8 +8,8 @@
 import UIKit
 
 class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIGestureRecognizerDelegate {
-    var doodles : [Doodle]
-    var doodlesImage: [UIImage?]
+    private var doodles : [Doodle]
+    private var doodlesImage: [UIImage?]
     
     override init() {
         doodles = [Doodle]()
@@ -18,7 +18,7 @@ class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIG
         loadDoodles()
     }
     
-    func loadDoodles() {
+    private func loadDoodles() {
         guard let photosData = NSDataAsset(name: "doodle") else { return }
         do {
             self.doodles = try JSONDecoder().decode([Doodle].self, from: photosData.data)

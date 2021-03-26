@@ -23,7 +23,7 @@ class CustomCell: UICollectionViewCell {
     }
     
     @objc func save() {
-        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil, nil)
+        PhotoManager.shared.saveImageToAlbum(with :self.imageView.image!)
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {

@@ -35,4 +35,8 @@ class PhotoManager {
             }
         }
     }
+    
+    func saveImageToAlbum(with image : UIImage) {
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+    }
 }
