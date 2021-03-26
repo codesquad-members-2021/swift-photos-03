@@ -12,8 +12,11 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
     @IBOutlet weak var collectionView: PhotosColectionView!
     
     @IBAction func addButtonPushed(_ sender: Any) {
-        let doodleStoryboard = UIStoryboard.init(name: "Doodle", bundle: nil)
-        guard let doodleVC = doodleStoryboard.instantiateViewController(identifier: "DoodleViewController") as? DoodleViewController else {return}
+        let storyBoardName = "Doodle"
+        let VCName = "DoodleViewController"
+        
+        let doodleStoryboard = UIStoryboard.init(name: storyBoardName, bundle: nil)
+        guard let doodleVC = doodleStoryboard.instantiateViewController(identifier: VCName) as? DoodleViewController else {return}
         
         let navigationController = UINavigationController(rootViewController: doodleVC)
         

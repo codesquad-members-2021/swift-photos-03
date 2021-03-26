@@ -53,6 +53,7 @@ class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIG
                 self.doodlesImage[indexPath.row] = doodleImage ?? UIImage()
                 DispatchQueue.main.async {
                     cell.imageView.image = doodleImage
+                    self.setTouchRecognizer(To: cell, indexPathRow: indexPath.row)
                 }
             } else {
                 DispatchQueue.main.async {
@@ -60,8 +61,6 @@ class DoodleViewControllerDataSource : NSObject, UICollectionViewDataSource, UIG
                 }
             }
         }
-        setTouchRecognizer(To: cell, indexPathRow: indexPath.row)
-        
         return cell
     }
     
